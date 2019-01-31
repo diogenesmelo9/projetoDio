@@ -1,0 +1,10 @@
+package br.com.dio.model;
+
+public enum TipoEmpresa {
+	
+	MEI("Microempreendedor"),
+	LTDA("Sociedade Limitada");
+	
+	private String descricao;
+
+}
