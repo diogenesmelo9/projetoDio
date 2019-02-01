@@ -27,7 +27,7 @@ public class Empresa implements Serializable {
 	private Long id;
 	
 	@Column(name = "nome_fantasia", nullable = false, length = 80)
-	private String descrição;
+	private String descricao;
 	
 	@Column(name = "razao_social", nullable = false, length = 120)
 	private String razaoSocial;
@@ -55,12 +55,12 @@ public class Empresa implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescrição() {
-		return descrição;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescrição(String descrição) {
-		this.descrição = descrição;
+	public void setDescricao(String descrição) {
+		this.descricao = descrição;
 	}
 
 	public String getRazaoSocial() {
@@ -93,6 +93,14 @@ public class Empresa implements Serializable {
 
 	public void setRamoAtividade(RamoAtividade ramoAtividade) {
 		this.ramoAtividade = ramoAtividade;
+	}
+	
+	public TipoEmpresa getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoEmpresa tipo) {
+		this.tipo = tipo;
 	}
 
 }

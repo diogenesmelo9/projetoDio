@@ -13,3 +13,8 @@ insert into empresa (id, cnpj, nome_fantasia, razao_social, tipo, data_fundacao,
 insert into empresa (id, cnpj, nome_fantasia, razao_social, tipo, data_fundacao, ramo_atividade_id) values (2, '52.822.994/0001-25', 'Fale Mais', 'Fale Mais Telecom S.A.', 'MEI', '1997-12-10', 2);
 insert into empresa (id, cnpj, nome_fantasia, razao_social, tipo, data_fundacao, ramo_atividade_id) values (3, '41.952.519/0001-57', 'Maria de Souza da Silva', 'Maria de Souza da Silva', 'MEI', '2014-10-15', 3);
 insert into empresa (id, cnpj, nome_fantasia, razao_social, tipo, data_fundacao, ramo_atividade_id) values (4, '16.134.777/0001-89', 'Gomes Inovação', 'José Fernando Gomes EIRELI ME', 'MEI', '2009-03-02', 4);
+
+insert into veiculo (id, placa, cor) values (1, 'kkk-123', 'vermelho');
+
+insert into proprietario (id, nome, sobre_nome, veiculo_id) values (1, 'Joao', 'Paulo', 1);
+
