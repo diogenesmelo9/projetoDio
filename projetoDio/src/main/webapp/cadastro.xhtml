@@ -16,6 +16,7 @@
 		</f:metadata>
 
 		<h:form>
+
 			<h:panelGrid columns="2">
 
 				<p:outputLabel value="Nome: " for="nome" />
@@ -38,6 +39,40 @@
 				<h:outputLabel />
 				<p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" />
 			</h:panelGrid>
+			
+			<p:spacer height="20px" />
+			
+			<p:toolbar>
+				<f:facet name="left">
+					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
+						size="30" />
+
+					<p:commandButton value="Pesquisar" icon="fa fa fa-search" />
+
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
+
+					<p:commandButton value="Nova" icon="fa fa-plus" onclick="PF('cadastroDialogWidgetVar').show()"/>
+
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
+
+					<p:commandButton title="Editar" icon="fa fa-edit" />
+
+					<p:commandButton title="Excluir" icon="fa fa-trash" />
+
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
+
+					<p:commandButton title="Exportar para o Excel"
+						icon="fa fa-file-excel-o" />
+				</f:facet>
+			</p:toolbar>
+
+			<p:spacer height="10px" />
 
 			<p:dataTable value="#{proprietarioMB.listaProprietarios}"
 				var="proprietario" emptyMessage="Nenhuma informação a ser exibida"
@@ -50,6 +85,12 @@
 					<h:outputText value="#{proprietario.sobreNome}" />
 				</p:column>
 			</p:dataTable>
+			
+			<p:dialog header="Nova cadastro" widgetVar="cadastroDialogWidgetVar"
+			modal="true" resizable="false" closeOnEscape="true">
+			<p:commandButton value="Teste!" />
+			
+		</p:dialog>
 		</h:form>
 	</ui:define>
 
