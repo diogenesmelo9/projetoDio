@@ -14,7 +14,7 @@ import br.com.dio.model.TipoEmpresa;
 public class CamadaPersistencia {
 	
 	public static void main(String[] args) {		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AlgaWorksPU");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
 		
 		EntityManager em = emf.createEntityManager();
 		
@@ -31,7 +31,7 @@ public class CamadaPersistencia {
 		
 		//Criando uma empresa
 		Empresa empresa = new Empresa();		
-		empresa.setDescricao("João da Silva");
+		empresa.setDescricao("aaaaaaa");
 		empresa.setCnpj("41.952.519/0001-57");
 		empresa.setRazaoSocial("João da Silva 41952519000157");
 		empresa.setTipo(TipoEmpresa.MEI);

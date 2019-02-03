@@ -11,7 +11,7 @@ import br.com.dio.model.Empresa;
 public class SchemaGeneration {
 	
 	public static void main(String[] args) {		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AlgaWorksPU");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
 		
 		EntityManager em = emf.createEntityManager();
 		

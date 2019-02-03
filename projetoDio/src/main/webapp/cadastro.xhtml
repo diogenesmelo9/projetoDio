@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="titulo">
+	Cadastro de Empresas
+</ui:define>
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<f:viewAction action="#{proprietarioMB.listarTodosProprietarios}" />
+		</f:metadata>
+
+		<h:form>
+			<h:panelGrid columns="2">
+
+				<p:outputLabel value="Nome: " for="nome" />
+				<h:panelGroup>
+					<p:inputText id="nome" value="#{proprietarioMB.proprietario.nome}"
+						required="true" />
+					<p:message for="nome" />
+				</h:panelGroup>
+
+				<p:outputLabel value="Sobre Nome: " for="sobreNome" />
+				<h:panelGroup>
+					<p:inputText id="sobreNome"
+						value="#{proprietarioMB.proprietario.sobreNome}" required="true" />
+					<p:message for="sobreNome" />
+				</h:panelGroup>
+
+				<h:outputLabel />
+				<p:commandButton value="Salvar"
+					actionListener="#{proprietarioMB.salvar}" update="@form" />
+				<h:outputLabel />
+				<p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" />
+			</h:panelGrid>
+
+			<p:dataTable value="#{proprietarioMB.listaProprietarios}"
+				var="proprietario" emptyMessage="Nenhuma informação a ser exibida"
+				paginator="true" rows="10" paginatorPosition="bottom">
+				<p:column headerText="Nome" sortBy="#{proprietario.nome}">
+					<h:outputText value="#{proprietario.nome}" />
+				</p:column>
+
+				<p:column headerText="Sobre Nome">
+					<h:outputText value="#{proprietario.sobreNome}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

@@ -22,6 +22,10 @@ public class Empresa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	public Empresa() {
+		super();
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,7 +34,7 @@ public class Empresa implements Serializable {
 	private String descricao;
 	
 	@Column(name = "razao_social", nullable = false, length = 120)
-	private String razaoSocial;
+	public String razaoSocial;
 	
 	@Column(nullable = false, length = 120)
 	private String cnpj;
