@@ -18,7 +18,7 @@
 		<h:form id="frm">
 
 			<p:spacer height="20px" />
-
+			<p:messages autoUpdate="true"/> 
 			<p:toolbar id="toolbar" style="width:691px">
 				<f:facet name="left">
 					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
@@ -84,14 +84,14 @@
 				<h:panelGrid id="proprietarioPanelGrid" columns="2">
 					<p:outputLabel value="Nome: " for="nome" />
 					<h:panelGroup>
-						<p:inputText id="nome" value="#{proprietarioMB.proprietario.nome}" />
+						<p:inputText id="nome" value="#{proprietarioMB.proprietario.nome}"/>
 						<p:message for="nome" />
 					</h:panelGroup>
 
 					<p:outputLabel value="Sobre Nome: " for="sobreNome" />
 					<h:panelGroup>
 						<p:inputText id="sobreNome"
-							value="#{proprietarioMB.proprietario.sobreNome}" />
+							value="#{proprietarioMB.proprietario.sobreNome}"/>
 						<p:message for="sobreNome" />
 					</h:panelGroup>
 

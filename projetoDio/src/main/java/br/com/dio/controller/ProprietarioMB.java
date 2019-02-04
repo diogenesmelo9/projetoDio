@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import br.com.dio.business.ProprietarioBusiness;
 import br.com.dio.model.Proprietario;
+import br.com.dio.util.FacesMessages;
 
 @Named
 @ViewScoped
@@ -23,6 +24,8 @@ public class ProprietarioMB implements Serializable {
 	
 	//@Inject
 	private ProprietarioBusiness proprietarioBusiness = new ProprietarioBusiness();
+	
+	private FacesMessages mensagem =  new FacesMessages();
 
 	private List<Proprietario> listaProprietarios;
 
@@ -31,6 +34,7 @@ public class ProprietarioMB implements Serializable {
 	public void salvar() {
 		proprietarioBusiness.salvar(proprietario);
 		listarTodosProprietarios();
+		mensagem.info("Propietário salvo com sucesso.");
 	}
 
 	public void listarTodosProprietarios() {
@@ -40,13 +44,14 @@ public class ProprietarioMB implements Serializable {
 	public void pesquisar() {
 		listaProprietarios = proprietarioBusiness.pesquisar(termoPesquisa);
 		if (listaProprietarios.isEmpty()) {
-			//messages.info("Sua consulta não retornou registros.");
+			mensagem.info("Sua consulta não retornou registros.");
 		}
 	}
 	
 	public void excluir(Proprietario proprietario){
 		proprietarioBusiness.excluir(proprietario);
 		listarTodosProprietarios();
+		mensagem.info("Propietário excluído com sucesso.");
 	}
 	
 	public String ajuda() {
