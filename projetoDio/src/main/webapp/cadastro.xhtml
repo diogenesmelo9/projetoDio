@@ -19,7 +19,7 @@
 
 			<p:spacer height="20px" />
 
-			<p:toolbar id="toolbar">
+			<p:toolbar id="toolbar" style="width:691px">
 				<f:facet name="left">
 					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
 						size="40" value="#{proprietarioMB.termoPesquisa}" />
@@ -40,10 +40,10 @@
 
 			<p:spacer height="10px" />
 
-			<p:dataTable id="proprietarioDataTable" lazy="true"
+			<p:dataTable id="proprietarioDataTable" style="width:700px"
 				value="#{proprietarioMB.listaProprietarios}" var="proprietario"
 				emptyMessage="Nenhuma informação a ser exibida" paginator="true"
-				rows="50" paginatorPosition="bottom">
+				rows="10" paginatorPosition="bottom">
 
 				<p:column style="width:32px;text-align: center">
 					<p:commandButton update=":frm:proprietarioPanelGrid"
@@ -62,11 +62,11 @@
 					</p:commandButton>
 				</p:column>
 
-				<p:column headerText="Nome" sortBy="#{proprietario.nome}">
+				<p:column headerText="Nome" style="text-align: center" sortBy="#{proprietario.nome}">
 					<h:outputText value="#{proprietario.nome}" />
 				</p:column>
 
-				<p:column headerText="Sobre Nome">
+				<p:column headerText="Sobre Nome" style="text-align: center" sortBy="#{proprietario.nome}">
 					<h:outputText value="#{proprietario.sobreNome}" />
 				</p:column>
 			</p:dataTable>

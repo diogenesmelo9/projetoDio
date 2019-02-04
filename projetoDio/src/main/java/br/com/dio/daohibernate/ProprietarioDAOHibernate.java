@@ -14,74 +14,59 @@ public class ProprietarioDAOHibernate implements ProprietarioDAO{
 	
 	//@Inject
 	//private EntityManager manager;
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 
 	public void salvarProprietario(Proprietario proprietario) {
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
-		em.merge(proprietario);
-		
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
+		abrirConexao();
+		entityManager.merge(proprietario);
+		fecharConexao();
 	}
 	
 	public List<Proprietario> listarProprietario() {
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
+		abrirConexao();
 		List<Proprietario> proprietarioList;
-		proprietarioList = em.createQuery("from Proprietario", Proprietario.class).getResultList();
-        
-        em.getTransaction().commit();
-		em.close();
-		emf.close();
+		proprietarioList = entityManager.createQuery("from Proprietario", Proprietario.class).getResultList();
+		fecharConexao();
 		
 		return proprietarioList;
    }
 	
 	public List<Proprietario> pesquisarProprietario(String nome) {
-		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
+		abrirConexao();
 		String jpql = "from Proprietario where nome like :nome";
 		
-		TypedQuery<Proprietario> query = em
+		TypedQuery<Proprietario> query = entityManager
 				.createQuery(jpql, Proprietario.class);
-		
 		query.setParameter("nome", nome + "%");
 		
-		List<Proprietario> proprietarioList;
-		proprietarioList = query.getResultList();
-		
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
+		List<Proprietario> proprietarioList = query.getResultList();
+		fecharConexao();
 		
 		return proprietarioList;
 	}
 	
 	public void excluirProprietario(Proprietario proprietario) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
-		proprietario = pesquisarProprietarioId(proprietario.getId(), em);
-		em.remove(proprietario);
-		
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
+		abrirConexao();
+		proprietario = pesquisarProprietarioId(proprietario.getId(), entityManager);
+		entityManager.remove(proprietario);
+		fecharConexao();
 	}
 	
 	public Proprietario pesquisarProprietarioId(Long id, EntityManager em) {
 		return em.find(Proprietario.class, id);
+	}
+	
+	public void abrirConexao() {
+		entityManagerFactory = Persistence.createEntityManagerFactory("PersistenceDio");
+		entityManager = entityManagerFactory.createEntityManager();
+		entityManager.getTransaction().begin();
+	}
+	
+	public void fecharConexao() {
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		entityManagerFactory.close();
 	}
 
 }
