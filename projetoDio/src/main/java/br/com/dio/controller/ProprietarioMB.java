@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
@@ -12,20 +13,22 @@ import br.com.dio.business.ProprietarioBusiness;
 import br.com.dio.model.Proprietario;
 
 @Named
-@ViewAccessScoped
+@ViewScoped
 public class ProprietarioMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	public ProprietarioMB () {
 		proprietario = new Proprietario();
+		//proprietarioBusiness = new ProprietarioBusiness();
 	}
 
-	// @Inject
-	private Proprietario proprietario = new Proprietario();
+	//@Inject
+	private Proprietario proprietario;
 
 	private List<Proprietario> listaProprietarios;
 
+	//@Inject
 	private ProprietarioBusiness proprietarioBusiness = new ProprietarioBusiness();
 	
 	private String termoPesquisa;

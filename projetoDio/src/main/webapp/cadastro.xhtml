@@ -40,14 +40,11 @@
 					<!-- <span class="ui-separator"> <span
 						class="ui-icon ui-icon-grip-dotted-vertical" />
 					</span>
-
 					<p:commandButton value="Nova" icon="fa fa-plus"
 						onclick="PF('cadastroDialogWidgetVar').show()" />
-
 					<span class="ui-separator"> <span
 						class="ui-icon ui-icon-grip-dotted-vertical" />
 					</span>
-
 					<p:commandButton title="Editar" icon="fa fa-edit" /> -->
 
 					<p:commandButton title="Excluir" icon="fa fa-trash"
@@ -57,7 +54,6 @@
 					<!-- <span class="ui-separator"> <span
 						class="ui-icon ui-icon-grip-dotted-vertical" />
 					</span>
-
 					<p:commandButton title="Exportar para o Excel"
 						icon="fa fa-file-excel-o" /> -->
 				</f:facet>
@@ -65,10 +61,19 @@
 
 			<p:spacer height="10px" />
 
-			<p:dataTable id="proprietarioDataTable" lazy="true" 
+			<p:dataTable id="proprietarioDataTable" lazy="true"
 				value="#{proprietarioMB.listaProprietarios}" var="proprietario"
 				emptyMessage="Nenhuma informação a ser exibida" paginator="true"
-				rows="50" paginatorPosition="bottom" >
+				rows="50" paginatorPosition="bottom">
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update=":frm:proprietarioPanelGrid"
+						oncomplete="PF('proprietarioDialogWidgetVar').show()" icon="pi pi-search"
+						title="View">
+						<f:setPropertyActionListener value="#{proprietario}"
+							target="#{proprietarioMB.proprietario}" />
+					</p:commandButton>
+				</p:column>
 
 				<p:column headerText="Nome" sortBy="#{proprietario.nome}">
 					<h:outputText value="#{proprietario.nome}" />
@@ -79,7 +84,7 @@
 				</p:column>
 			</p:dataTable>
 
-			<p:dialog id="proprietarioDialog" header="Novo proprietario"
+			<p:dialog id="proprietarioDialog" header="Proprietário"
 				widgetVar="proprietarioDialogWidgetVar" modal="true"
 				resizable="false" closeOnEscape="true">
 
