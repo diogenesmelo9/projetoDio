@@ -10,12 +10,12 @@ import javax.persistence.TypedQuery;
 import br.com.dio.dao.ProprietarioDAO;
 import br.com.dio.model.Proprietario;
 
-public class ProprietatioDAOHibernate implements ProprietarioDAO{
+public class ProprietarioDAOHibernate implements ProprietarioDAO{
 	
 	//@Inject
 	//private EntityManager manager;
 
-	public void save(Proprietario proprietario) {
+	public void salvarProprietario(Proprietario proprietario) {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
 		EntityManager em = emf.createEntityManager();
@@ -28,7 +28,7 @@ public class ProprietatioDAOHibernate implements ProprietarioDAO{
 		emf.close();
 	}
 	
-	public List<Proprietario> listarTodosProprietarios() {
+	public List<Proprietario> listarProprietario() {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
 		EntityManager em = emf.createEntityManager();
@@ -42,19 +42,9 @@ public class ProprietatioDAOHibernate implements ProprietarioDAO{
 		emf.close();
 		
 		return proprietarioList;
-		
-		/*Proprietario proprietario1 = new Proprietario();
-		proprietario1.setId(1l);
-		proprietario1.setNome("nome");
-		proprietario1.setSobreNome("sobreNome");
-		
-		List<Proprietario> proprietarioList = new ArrayList<Proprietario>();
-		proprietarioList.add(proprietario1);
-		
-		return proprietarioList;*/
    }
 	
-	public List<Proprietario> pesquisar(String nome) {
+	public List<Proprietario> pesquisarProprietario(String nome) {
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
 		EntityManager em = emf.createEntityManager();
@@ -77,12 +67,12 @@ public class ProprietatioDAOHibernate implements ProprietarioDAO{
 		return proprietarioList;
 	}
 	
-	public void excluir(Proprietario proprietario) {
+	public void excluirProprietario(Proprietario proprietario) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
-		proprietario = porId(proprietario.getId(), em);
+		proprietario = pesquisarProprietarioId(proprietario.getId(), em);
 		em.remove(proprietario);
 		
 		em.getTransaction().commit();
@@ -90,7 +80,7 @@ public class ProprietatioDAOHibernate implements ProprietarioDAO{
 		emf.close();
 	}
 	
-	public Proprietario porId(Long id, EntityManager em) {
+	public Proprietario pesquisarProprietarioId(Long id, EntityManager em) {
 		return em.find(Proprietario.class, id);
 	}
 

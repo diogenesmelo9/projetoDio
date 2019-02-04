@@ -24,14 +24,6 @@ public class Proprietario implements Serializable{
 	
 	@Column(name = "sobre_nome", nullable = false, length = 80)
 	private String sobreNome;
-	
-	//@Temporal(TemporalType.DATE)
-	//@Column(name = "data_nascimento")
-	//private Date dataNascimento;
-	
-	/*@ManyToOne
-	@JoinColumn(name = "veiculo_id", nullable = false)
-	private Veiculo veiculo;*/
 
 	public Long getId() {
 		return id;
@@ -57,24 +49,9 @@ public class Proprietario implements Serializable{
 		this.sobreNome = sobreNome;
 	}
 
-	/*public Veiculo getVeiculo() {
-		return veiculo;
-	}
-
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
-	}*/
-
 	@Override
 	public String toString() {
 		return "Proprietario [id=" + id + "]";
 	}
 
-	/*public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}*/
 }
