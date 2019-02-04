@@ -29,5 +29,10 @@ public class ProprietarioBusiness {
 		proprietatioDAOHibernate = new ProprietatioDAOHibernate();
 		return proprietatioDAOHibernate.pesquisar(nome);
 	}
+	
+	public void excluir(Proprietario proprietario) {
+		proprietatioDAOHibernate = new ProprietatioDAOHibernate();
+		proprietatioDAOHibernate.excluir(proprietario);
+	}
 
 }

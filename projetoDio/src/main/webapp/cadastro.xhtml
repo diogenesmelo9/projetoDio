@@ -17,14 +17,12 @@
 
 		<h:form id="frm">
 
-
-
 			<p:spacer height="20px" />
 
 			<p:toolbar id="toolbar">
 				<f:facet name="left">
 					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
-						size="30" value="#{proprietarioMB.termoPesquisa}" />
+						size="40" value="#{proprietarioMB.termoPesquisa}" />
 
 					<p:commandButton value="Pesquisar" icon="fa fa fa-search"
 						actionListener="#{proprietarioMB.pesquisar}"
@@ -37,25 +35,6 @@
 						<p:resetInput target="proprietarioDialog" />
 					</p:commandButton>
 
-					<!-- <span class="ui-separator"> <span
-						class="ui-icon ui-icon-grip-dotted-vertical" />
-					</span>
-					<p:commandButton value="Nova" icon="fa fa-plus"
-						onclick="PF('cadastroDialogWidgetVar').show()" />
-					<span class="ui-separator"> <span
-						class="ui-icon ui-icon-grip-dotted-vertical" />
-					</span>
-					<p:commandButton title="Editar" icon="fa fa-edit" /> -->
-
-					<p:commandButton title="Excluir" icon="fa fa-trash"
-						actionListener="#{proprietarioMB.excluir}"
-						update="proprietarioDataTable toolbar" process="@this" />
-
-					<!-- <span class="ui-separator"> <span
-						class="ui-icon ui-icon-grip-dotted-vertical" />
-					</span>
-					<p:commandButton title="Exportar para o Excel"
-						icon="fa fa-file-excel-o" /> -->
 				</f:facet>
 			</p:toolbar>
 
@@ -68,10 +47,18 @@
 
 				<p:column style="width:32px;text-align: center">
 					<p:commandButton update=":frm:proprietarioPanelGrid"
-						oncomplete="PF('proprietarioDialogWidgetVar').show()" icon="pi pi-search"
-						title="View">
+						oncomplete="PF('proprietarioDialogWidgetVar').show()"
+						icon="fa fa-edit" title="View">
 						<f:setPropertyActionListener value="#{proprietario}"
 							target="#{proprietarioMB.proprietario}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton update="proprietarioDataTable" icon="fa fa-trash"
+						title="View"
+						actionListener="#{proprietarioMB.excluir(proprietario)}"
+						process="@this">
 					</p:commandButton>
 				</p:column>
 
@@ -83,6 +70,9 @@
 					<h:outputText value="#{proprietario.sobreNome}" />
 				</p:column>
 			</p:dataTable>
+			
+			<p:spacer height="25px" />
+			<p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" />
 
 			<p:dialog id="proprietarioDialog" header="Proprietário"
 				widgetVar="proprietarioDialogWidgetVar" modal="true"
@@ -92,7 +82,6 @@
 					scope="proprietarioDialog" />
 
 				<h:panelGrid id="proprietarioPanelGrid" columns="2">
-
 					<p:outputLabel value="Nome: " for="nome" />
 					<h:panelGroup>
 						<p:inputText id="nome" value="#{proprietarioMB.proprietario.nome}" />
@@ -112,11 +101,8 @@
 						update="proprietarioDataTable proprietarioPanelGrid"
 						oncomplete="PF('proprietarioDialogWidgetVar').hide()" />
 					<h:outputLabel />
-					<p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" />
 				</h:panelGrid>
-
 			</p:dialog>
-
 		</h:form>
 	</ui:define>
 

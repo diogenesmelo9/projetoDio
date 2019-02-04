@@ -76,5 +76,22 @@ public class ProprietatioDAOHibernate implements ProprietarioDAO{
 		
 		return proprietarioList;
 	}
+	
+	public void excluir(Proprietario proprietario) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("PersistenceDio");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		proprietario = porId(proprietario.getId(), em);
+		em.remove(proprietario);
+		
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+	}
+	
+	public Proprietario porId(Long id, EntityManager em) {
+		return em.find(Proprietario.class, id);
+	}
 
 }

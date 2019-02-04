@@ -58,8 +58,9 @@ public class ProprietarioMB implements Serializable {
 		}
 	}
 	
-	public void excluir(){
-		System.out.println(proprietario);
+	public void excluir(Proprietario proprietario){
+		proprietarioBusiness.excluir(proprietario);
+		listarTodosProprietarios();
 	}
 	
 	public String ajuda() {
