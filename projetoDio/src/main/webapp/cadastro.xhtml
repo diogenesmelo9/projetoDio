@@ -7,7 +7,7 @@
 	template="WEB-INF/templates/layout.xhtml">
 
 	<ui:define name="titulo">
-	Cadastro de Empresas
+	Cadastro de Proprietário
 </ui:define>
 
 	<ui:define name="conteudo">
@@ -15,68 +15,61 @@
 			<f:viewAction action="#{proprietarioMB.listarTodosProprietarios}" />
 		</f:metadata>
 
-		<h:form>
+		<h:form id="frm">
 
-			<h:panelGrid columns="2">
 
-				<p:outputLabel value="Nome: " for="nome" />
-				<h:panelGroup>
-					<p:inputText id="nome" value="#{proprietarioMB.proprietario.nome}"
-						required="true" />
-					<p:message for="nome" />
-				</h:panelGroup>
 
-				<p:outputLabel value="Sobre Nome: " for="sobreNome" />
-				<h:panelGroup>
-					<p:inputText id="sobreNome"
-						value="#{proprietarioMB.proprietario.sobreNome}" required="true" />
-					<p:message for="sobreNome" />
-				</h:panelGroup>
-
-				<h:outputLabel />
-				<p:commandButton value="Salvar"
-					actionListener="#{proprietarioMB.salvar}" update="@form" />
-				<h:outputLabel />
-				<p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" />
-			</h:panelGrid>
-			
 			<p:spacer height="20px" />
-			
-			<p:toolbar>
+
+			<p:toolbar id="toolbar">
 				<f:facet name="left">
 					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
-						size="30" />
+						size="30" value="#{proprietarioMB.termoPesquisa}" />
 
-					<p:commandButton value="Pesquisar" icon="fa fa fa-search" />
+					<p:commandButton value="Pesquisar" icon="fa fa fa-search"
+						actionListener="#{proprietarioMB.pesquisar}"
+						update="proprietarioDataTable" />
+
+					<p:commandButton value="Nova" icon="fa fa-plus"
+						actionListener="#{proprietarioMB.prepararNovaProprietario}"
+						oncomplete="PF('proprietarioDialogWidgetVar').show()"
+						update="proprietarioDialog" process="@this">
+						<p:resetInput target="proprietarioDialog" />
+					</p:commandButton>
+
+					<!-- <span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
+
+					<p:commandButton value="Nova" icon="fa fa-plus"
+						onclick="PF('cadastroDialogWidgetVar').show()" />
 
 					<span class="ui-separator"> <span
 						class="ui-icon ui-icon-grip-dotted-vertical" />
 					</span>
 
-					<p:commandButton value="Nova" icon="fa fa-plus" onclick="PF('cadastroDialogWidgetVar').show()"/>
+					<p:commandButton title="Editar" icon="fa fa-edit" /> -->
 
-					<span class="ui-separator"> <span
-						class="ui-icon ui-icon-grip-dotted-vertical" />
-					</span>
+					<p:commandButton title="Excluir" icon="fa fa-trash"
+						actionListener="#{proprietarioMB.excluir}"
+						update="proprietarioDataTable toolbar" process="@this" />
 
-					<p:commandButton title="Editar" icon="fa fa-edit" />
-
-					<p:commandButton title="Excluir" icon="fa fa-trash" />
-
-					<span class="ui-separator"> <span
+					<!-- <span class="ui-separator"> <span
 						class="ui-icon ui-icon-grip-dotted-vertical" />
 					</span>
 
 					<p:commandButton title="Exportar para o Excel"
-						icon="fa fa-file-excel-o" />
+						icon="fa fa-file-excel-o" /> -->
 				</f:facet>
 			</p:toolbar>
 
 			<p:spacer height="10px" />
 
-			<p:dataTable value="#{proprietarioMB.listaProprietarios}"
-				var="proprietario" emptyMessage="Nenhuma informação a ser exibida"
-				paginator="true" rows="10" paginatorPosition="bottom">
+			<p:dataTable id="proprietarioDataTable" lazy="true" 
+				value="#{proprietarioMB.listaProprietarios}" var="proprietario"
+				emptyMessage="Nenhuma informação a ser exibida" paginator="true"
+				rows="50" paginatorPosition="bottom" >
+
 				<p:column headerText="Nome" sortBy="#{proprietario.nome}">
 					<h:outputText value="#{proprietario.nome}" />
 				</p:column>
@@ -85,12 +78,40 @@
 					<h:outputText value="#{proprietario.sobreNome}" />
 				</p:column>
 			</p:dataTable>
-			
-			<p:dialog header="Nova cadastro" widgetVar="cadastroDialogWidgetVar"
-			modal="true" resizable="false" closeOnEscape="true">
-			<p:commandButton value="Teste!" />
-			
-		</p:dialog>
+
+			<p:dialog id="proprietarioDialog" header="Novo proprietario"
+				widgetVar="proprietarioDialogWidgetVar" modal="true"
+				resizable="false" closeOnEscape="true">
+
+				<p:defaultCommand target="salvarCommandButton"
+					scope="proprietarioDialog" />
+
+				<h:panelGrid id="proprietarioPanelGrid" columns="2">
+
+					<p:outputLabel value="Nome: " for="nome" />
+					<h:panelGroup>
+						<p:inputText id="nome" value="#{proprietarioMB.proprietario.nome}" />
+						<p:message for="nome" />
+					</h:panelGroup>
+
+					<p:outputLabel value="Sobre Nome: " for="sobreNome" />
+					<h:panelGroup>
+						<p:inputText id="sobreNome"
+							value="#{proprietarioMB.proprietario.sobreNome}" />
+						<p:message for="sobreNome" />
+					</h:panelGroup>
+
+					<h:outputLabel />
+					<p:commandButton id="salvarCommandButton" value="Salvar"
+						actionListener="#{proprietarioMB.salvar}"
+						update="proprietarioDataTable proprietarioPanelGrid"
+						oncomplete="PF('proprietarioDialogWidgetVar').hide()" />
+					<h:outputLabel />
+					<p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" />
+				</h:panelGrid>
+
+			</p:dialog>
+
 		</h:form>
 	</ui:define>
 

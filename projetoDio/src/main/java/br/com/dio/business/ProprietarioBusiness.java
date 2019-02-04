@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.com.dio.daohibernate.ProprietatioDAOHibernate;
 import br.com.dio.model.Proprietario;
-import br.com.dio.model.Veiculo;
 
 public class ProprietarioBusiness {
 	
@@ -17,12 +16,6 @@ public class ProprietarioBusiness {
 	
 	//@Transacional
 	public void save(Proprietario proprietario) {
-		proprietario.setSobreNome("sobreNome");
-		Veiculo veiculo = new Veiculo();
-		veiculo.setId(1L);
-		veiculo.setCor("azul");
-		veiculo.setPlaca("saas-121");
-		//proprietario.setVeiculo(veiculo);
 		proprietatioDAOHibernate = new ProprietatioDAOHibernate();
 		proprietatioDAOHibernate.save(proprietario);
 	}
@@ -30,6 +23,11 @@ public class ProprietarioBusiness {
 	public List<Proprietario> listarTodosProprietarios() {
 		proprietatioDAOHibernate = new ProprietatioDAOHibernate();
 		return proprietatioDAOHibernate.listarTodosProprietarios();
+	}
+	
+	public List<Proprietario> pesquisar(String nome) {
+		proprietatioDAOHibernate = new ProprietatioDAOHibernate();
+		return proprietatioDAOHibernate.pesquisar(nome);
 	}
 
 }

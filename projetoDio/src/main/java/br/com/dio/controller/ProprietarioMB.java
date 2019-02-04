@@ -6,33 +6,80 @@ import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.apache.myfaces.extensions.cdi.core.api.scope.conversation.ViewAccessScoped;
+
 import br.com.dio.business.ProprietarioBusiness;
 import br.com.dio.model.Proprietario;
 
 @Named
-@ViewScoped
+@ViewAccessScoped
 public class ProprietarioMB implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    
-    //@Inject
-    private Proprietario proprietario = new Proprietario();
-    
-    private List<Proprietario> listaProprietarios;
-    
-    private ProprietarioBusiness proprietarioBusiness;
-    
-    
-    public void salvar() {
-    	proprietarioBusiness = new ProprietarioBusiness();
-    	//proprietarioBusiness.save(proprietario);
-        System.out.println("Nome: " + proprietario.getNome());
+
+	private static final long serialVersionUID = 1L;
+	
+	public ProprietarioMB () {
+		proprietario = new Proprietario();
+	}
+
+	// @Inject
+	private Proprietario proprietario = new Proprietario();
+
+	private List<Proprietario> listaProprietarios;
+
+	private ProprietarioBusiness proprietarioBusiness = new ProprietarioBusiness();
+	
+	private String termoPesquisa;
+	
+	//@Inject
+    //private FacesMessages messages;
+	
+	public void salvar() {
+		proprietarioBusiness = new ProprietarioBusiness();
+		proprietarioBusiness.save(proprietario);
+		listarTodosProprietarios();
+	}
+
+	public void listarTodosProprietarios() {
+		listaProprietarios = proprietarioBusiness.listarTodosProprietarios();
+	}
+
+	public List<Proprietario> getListaProprietarios() {
+		return listaProprietarios;
+	}
+	
+	public void pesquisar() {
+		listaProprietarios = proprietarioBusiness.pesquisar(termoPesquisa);
+
+		if (listaProprietarios.isEmpty()) {
+			//messages.info("Sua consulta não retornou registros.");
+		}
+	}
+	
+	public void excluir(){
+		System.out.println(proprietario);
+	}
+	
+	public String ajuda() {
+		return "ajuda?faces-redirect=true";
+	}
+	
+	public void prepararNovaProprietario() {
+		proprietario = new Proprietario();
     }
-    
-    public String ajuda() {
-    	return "ajuda?faces-redirect=true";
+	
+	public boolean isProprietarioSelecionado() {
+        return proprietario != null && proprietario.getId() != null;
     }
 
+	/*Gets and Sets*/
+	public String getTermoPesquisa() {
+		return termoPesquisa;
+	}
+
+	public void setTermoPesquisa(String termoPesquisa) {
+		this.termoPesquisa = termoPesquisa;
+	}
+	
 	public Proprietario getProprietario() {
 		return proprietario;
 	}
@@ -40,14 +87,5 @@ public class ProprietarioMB implements Serializable {
 	public void setProprietario(Proprietario proprietario) {
 		this.proprietario = proprietario;
 	}
-	
-	public void listarTodosProprietarios() {
-		proprietarioBusiness = new ProprietarioBusiness();
-		listaProprietarios = proprietarioBusiness.listarTodosProprietarios();
-    }
-	
-	public List<Proprietario> getListaProprietarios() {
-        return listaProprietarios;
-    }
 	
 }

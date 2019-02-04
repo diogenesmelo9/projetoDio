@@ -9,6 +9,4 @@ insert into veiculo (id, placa, cor) values (1, 'kkk-123', 'vermelho');
 insert into veiculo (id, placa, cor) values (2, 'ddd-098', 'azul');
 
 insert into proprietario (id, nome, sobre_nome) values (1, 'Leao', 'Leoa');
-insert into proprietario (id, nome, sobre_nome) values (2, 'lobo', 'loba');
-insert into proprietario (id, nome, sobre_nome) values (3, 'cavalo', 'egua');
 
