@@ -7,7 +7,7 @@
 	template="WEB-INF/templates/layout.xhtml">
 
 	<ui:define name="titulo">
-	Cadastro de Proprietário
+	<h1 style="width:691px; margin-left: 40px" >Cadastro de Proprietário</h1>
 </ui:define>
 
 	<ui:define name="conteudo">
@@ -18,16 +18,17 @@
 		<h:form id="frm">
 
 			<p:spacer height="20px" />
-			<p:messages autoUpdate="true"/> 
-			<p:toolbar id="toolbar" style="width:691px">
+			<p:messages id="messages"/> 
+			<p:toolbar id="toolbar" style="width:692px; margin-left: 30px">
 				<f:facet name="left">
-					<p:inputText placeholder="Digite aqui um termo para pesquisa..."
+					<p:inputText id="termoPesquisa" placeholder="Digite aqui um termo para pesquisa..."
 						size="40" value="#{proprietarioMB.termoPesquisa}" />
 
 					<p:commandButton value="Pesquisar" icon="fa fa fa-search"
 						actionListener="#{proprietarioMB.pesquisar}"
-						update="proprietarioDataTable" />
-
+						update="proprietarioDataTable messages" process="@this termoPesquisa">
+					</p:commandButton>
+					
 					<p:commandButton value="Novo" icon="fa fa-plus"
 						actionListener="#{proprietarioMB.prepararNovaProprietario}"
 						oncomplete="PF('proprietarioDialogWidgetVar').show()"
@@ -40,15 +41,16 @@
 
 			<p:spacer height="10px" />
 
-			<p:dataTable id="proprietarioDataTable" style="width:700px"
+			<p:dataTable id="proprietarioDataTable" style="width:700px; padding: 0px 30px"
 				value="#{proprietarioMB.listaProprietarios}" var="proprietario"
 				emptyMessage="Nenhuma informação a ser exibida" paginator="true"
 				rows="10" paginatorPosition="bottom">
 
 				<p:column style="width:32px;text-align: center">
-					<p:commandButton update=":frm:proprietarioPanelGrid"
+					<p:commandButton update=":frm:proprietarioPanelGrid :frm:proprietarioDialog"
 						oncomplete="PF('proprietarioDialogWidgetVar').show()"
-						icon="fa fa-edit" title="View">
+						icon="fa fa-edit" title="View" process="@this">
+						<p:resetInput target=":frm:proprietarioDialog" />
 						<f:setPropertyActionListener value="#{proprietario}"
 							target="#{proprietarioMB.proprietario}" />
 					</p:commandButton>
@@ -72,11 +74,13 @@
 			</p:dataTable>
 			
 			<p:spacer height="25px" />
-			<p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" />
+			<!-- <p:commandLink value="Ajuda?" action="#{proprietarioMB.ajuda()}" /> -->
 
 			<p:dialog id="proprietarioDialog" header="Proprietário"
 				widgetVar="proprietarioDialogWidgetVar" modal="true"
 				resizable="false" closeOnEscape="true">
+				
+				<p:messages id="messagesDialog" autoUpdate="true"/> 
 
 				<p:defaultCommand target="salvarCommandButton"
 					scope="proprietarioDialog" />
@@ -85,21 +89,19 @@
 					<p:outputLabel value="Nome: " for="nome" />
 					<h:panelGroup>
 						<p:inputText id="nome" value="#{proprietarioMB.proprietario.nome}"/>
-						<p:message for="nome" />
 					</h:panelGroup>
 
 					<p:outputLabel value="Sobre Nome: " for="sobreNome" />
 					<h:panelGroup>
 						<p:inputText id="sobreNome"
 							value="#{proprietarioMB.proprietario.sobreNome}"/>
-						<p:message for="sobreNome" />
 					</h:panelGroup>
 
 					<h:outputLabel />
 					<p:commandButton id="salvarCommandButton" value="Salvar"
 						actionListener="#{proprietarioMB.salvar}"
-						update="proprietarioDataTable proprietarioPanelGrid"
-						oncomplete="PF('proprietarioDialogWidgetVar').hide()" />
+						update="proprietarioDataTable proprietarioPanelGrid messagesDialog"
+						oncomplete="if (!args.validationFailed) PF('proprietarioDialogWidgetVar').hide()" />
 					<h:outputLabel />
 				</h:panelGrid>
 			</p:dialog>

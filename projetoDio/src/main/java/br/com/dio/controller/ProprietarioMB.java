@@ -1,10 +1,13 @@
 package br.com.dio.controller;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
+import org.primefaces.context.RequestContext;
 
 import br.com.dio.business.ProprietarioBusiness;
 import br.com.dio.model.Proprietario;
@@ -34,7 +37,9 @@ public class ProprietarioMB implements Serializable {
 	public void salvar() {
 		proprietarioBusiness.salvar(proprietario);
 		listarTodosProprietarios();
-		mensagem.info("Propietário salvo com sucesso.");
+		mensagem.info("Proprietário salvo com sucesso.");
+		RequestContext.getCurrentInstance().update(Arrays.asList(
+                "frm:proprietarioDataTable", "frm:messages"));
 	}
 
 	public void listarTodosProprietarios() {
@@ -45,13 +50,17 @@ public class ProprietarioMB implements Serializable {
 		listaProprietarios = proprietarioBusiness.pesquisar(termoPesquisa);
 		if (listaProprietarios.isEmpty()) {
 			mensagem.info("Sua consulta não retornou registros.");
+			RequestContext.getCurrentInstance().update(Arrays.asList(
+	                "frm:proprietarioDataTable", "frm:messages"));
 		}
 	}
 	
 	public void excluir(Proprietario proprietario){
 		proprietarioBusiness.excluir(proprietario);
 		listarTodosProprietarios();
-		mensagem.info("Propietário excluído com sucesso.");
+		mensagem.info("Proprietário excluído com sucesso.");
+		RequestContext.getCurrentInstance().update(Arrays.asList(
+                "frm:proprietarioDataTable", "frm:messages"));
 	}
 	
 	public String ajuda() {
@@ -63,7 +72,6 @@ public class ProprietarioMB implements Serializable {
     }
 
 	/*Gets and Sets*/
-	
 	public List<Proprietario> getListaProprietarios() {
 		return listaProprietarios;
 	}

@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "proprietario")
 public class Proprietario implements Serializable{
@@ -19,9 +21,11 @@ public class Proprietario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
 	@Column(name = "nome", nullable = false, length = 80)
 	private String nome;
 	
+	@NotEmpty
 	@Column(name = "sobre_nome", nullable = false, length = 80)
 	private String sobreNome;
 
